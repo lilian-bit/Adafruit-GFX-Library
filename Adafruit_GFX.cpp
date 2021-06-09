@@ -411,6 +411,25 @@ void Adafruit_GFX::drawEllipse(int16_t x1, int16_t y1, int16_t x2, int16_t y2, i
 }
 
 
+// Draw a ellipse outline 1
+void Adafruit_GFX::drawEllipse1(int16_t x1, int16_t y1, int16_t x2, int16_t y2, int16_t a, uint16_t color) {
+    int16_t max_x = ((x1 > x2 ? x1 : x2) + a > 128 ? (x1 > x2 ? x1 : x2) + a : 128);
+    int16_t max_y = ((y1 > y2 ? y1 : y2) + a > 64 ? (y1 > y2 ? y1 : y2) + a : 64);
+    for (int16_t x = ((x1 > x2 ? x2 : x1) - a > 0 ? (x1 > x2 ? x2 : x1) - a : 0 ); x <= max_x; x++) {
+        for (int16_t y = ((y1 > y2 ? y2 : y1) - a > 0 ? (y1 > y2 ? y2 : y1) - a : 0); y <= max_y; y++) {
+            int32_t distance = sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1)) + sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2));
+            if (distance-a == a) {
+                writePixel(x, y, color);
+            }
+        }
+    }
+    writePixel(x1, y1, color);
+    writePixel(x2, y2, color);
+    endWrite();
+}
+
+
+
 // Draw a triangle
 void Adafruit_GFX::drawTriangle(int16_t x0, int16_t y0,
         int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color) {
@@ -500,6 +519,7 @@ void Adafruit_GFX::fillTriangle(int16_t x0, int16_t y0,
     endWrite();
 }
 
+
 //Draw a FiveStar
 void Adafruit_GFX::drawFiveStar(int16_t x0, int16_t y0, int16_t x1, int16_t y1,
       int16_t x2, int16_t y2,int16_t x3, int16_t y3,int16_t x4, int16_t y4,
@@ -529,6 +549,7 @@ void Adafruit_GFX::drawFiveStar(int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     {
 
     }*/
+
 
 
 
